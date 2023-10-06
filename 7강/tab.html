@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>서버가 있어야지만 구현가능한 비동기통신</title>
+    <style>
+        .act{
+            background-color: red;
+            color:white;
+        }
+    </style>
+    <script
+  src="https://code.jquery.com/jquery-2.2.4.js"
+  integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+  crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(() => {
+            loadContent("#waytab");
+            //화면의 열리자마자 실행 (오시는길이 노출되도록 처리)
+
+            $(".tabwap button").click(function(){
+                //버튼들을 클릭하면
+                loadContent($(this).data("obj"));
+                //클릭한 버튼의 data-obj의 아이디객체 로딩하고 버튼 활성화해라.
+            })
+
+            function loadContent(obj){
+              $(".tabContent").load(`/DB/tabcontent.html ${obj}`) 
+              //특정객체의 컨텐츠를 가져와서 .tabContent객체에 출력해라
+              $(`[data-obj="${obj}"]`).addClass("act").siblings().removeClass('act')
+              // data-obj라는 속성의 값이 매개인자와 동일한 객체는 활성화하고 형제태그들은
+              // 비활성화처리해라.
+            }
+        })
+    </script>
+</head>
+<body>    
+    <div class="tabwap">
+        <button class="tabbtn" data-obj="#abouttab">회사소개</button>
+        <button class="tabbtn" data-obj="#ceotab">CEO인사말</button>
+        <button class="tabbtn" data-obj="#waytab">오시는길</button>
+    </div>
+    <div class="tabContent">
+        
+    </div>
+</body>
+</html>
+
+<!-- $("button[data-obj^='#']")  -> 3개모두
+
+$(".tabbtn.act")  -> 활성화 버튼
+$(".tabbtn:not(.act)") -> 활성화가 안된 버튼
+
+$(".tabwap [data-obj='#ceotab']")
+$("[data-obj='#ceotab']")
+$("button[data-obj='#ceotab']")
+$(".tabbtn[data-obj='#ceotab']")
+$(".tabbtn[data-obj='#abouttab'] +  button")
+$(".tabbtn > button").eq(1) -->

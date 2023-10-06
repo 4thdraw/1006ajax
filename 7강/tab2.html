@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>서버가 있어야지만 구현가능한 비동기통신</title>
+    <style>
+        .act{
+            background-color: red;
+            color:white;
+        }
+    </style>
+    <script
+  src="https://code.jquery.com/jquery-2.2.4.js"
+  integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+  crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(() => {
+            loadContent("/DB/way.html");
+            
+            $(".tabwap button").click(function(){                
+                loadContent($(this).data("obj"));                
+            })
+
+            function loadContent(obj){
+              $(".tabContent").load(`${obj}`)              
+              $(`[data-obj="${obj}"]`).addClass("act").siblings().removeClass('act')             
+            }
+        })
+    </script>
+</head>
+<body>    
+    <div class="tabwap">
+        <button class="tabbtn" data-obj="/DB/tabcontent.html #abouttab">회사소개</button>
+        <button class="tabbtn" data-obj="/DB/ceo.html">CEO인사말</button>
+        <button class="tabbtn" data-obj="/DB/way.html">오시는길</button>
+    </div>
+    <div class="tabContent">
+        
+    </div>
+</body>
+</html>
+
+<!-- $("button[data-obj^='#']")  -> 3개모두
+
+$(".tabbtn.act")  -> 활성화 버튼
+$(".tabbtn:not(.act)") -> 활성화가 안된 버튼
+
+$(".tabwap [data-obj='#ceotab']")
+$("[data-obj='#ceotab']")
+$("button[data-obj='#ceotab']")
+$(".tabbtn[data-obj='#ceotab']")
+$(".tabbtn[data-obj='#abouttab'] +  button")
+$(".tabbtn > button").eq(1) -->

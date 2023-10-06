@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>비동기통신다루기</title>
+    <script
+    src="https://code.jquery.com/jquery-2.2.4.js"
+    integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+    crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(()=>{
+            $.ajax({
+                type : "GET",
+                url : "/json/navi.json",
+                dataType : "json",
+                success : function(data){
+
+                    var navtag = "";                  
+                    for(i in data.sns){
+                        navtag +=`<li>
+                            <a href="${data.sns[i].href}">
+                                ${data.sns[i].nm}
+                            </a>
+                            </li>`
+                    } 
+                    $("nav ul").html(navtag)        
+                },
+                error : function(err){
+                   console.log(err)
+                }
+            })
+        })
+    </script>
+</head>
+<body>
+    <nav>
+        <ul>
+
+        </ul>
+    </nav>
+</body>
+</html>
